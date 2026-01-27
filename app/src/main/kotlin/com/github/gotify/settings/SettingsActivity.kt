@@ -74,6 +74,36 @@ internal class SettingsActivity :
                     getString(R.string.setting_key_notification_channels)
                 )?.isEnabled = true
             }
+            findPreference<androidx.preference.EditTextPreference>(
+                getString(R.string.setting_key_reconnect_interval)
+            )?.let {
+                it.setOnBindEditTextListener { editText ->
+                    editText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+                }
+                it.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val value = (newValue as String).trim().toIntOrNull() ?: 60
+                        if (value < 5 || value > 60) {
+                            Utils.showSnackBar(requireActivity(), "Please enter a value between 5 and 60")
+                            return@OnPreferenceChangeListener false
+                        }
+
+                        requestWebSocketRestart()
+                        true
+                    }
+            }
+            findPreference<SwitchPreferenceCompat>(
+                getString(R.string.setting_key_backoff)
+            )?.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _, _ ->
+                    requestWebSocketRestart()
+                    true
+                }
+        }
+
+        private fun requestWebSocketRestart() {
+            val intent = Intent(requireContext(), com.github.gotify.service.WebSocketService::class.java)
+            requireContext().startService(intent)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -110,16 +110,30 @@ internal class WebSocketService : Service() {
 
         val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        var reconnectInterval = sharedPreferences
+            .getString(getString(R.string.setting_key_reconnect_interval), "60")
+            ?.trim()
+            ?.toIntOrNull() ?: 60
+        
+        reconnectInterval = reconnectInterval.coerceIn(5, 60)
+
+        val disableBackoff = sharedPreferences.getBoolean(
+            getString(R.string.setting_key_backoff),
+            false
+        )
 
         connection = WebSocketConnection(
             settings.url,
             settings.sslSettings(),
             settings.token,
-            alarmManager
+            alarmManager,
+            reconnectInterval,
+            disableBackoff
         )
             .onOpen { onOpen() }
             .onClose { onClose() }
-            .onFailure { status, minutes -> onFailure(status, minutes) }
+            .onFailure { status, seconds -> onFailure(status, seconds) }
             .onMessage { message -> onMessage(message) }
             .onReconnected { notifyMissedNotifications() }
             .start()
@@ -183,10 +197,14 @@ internal class WebSocketService : Service() {
         connection?.scheduleReconnectNow(15)
     }
 
-    private fun onFailure(status: String, minutes: Int) {
+    private fun onFailure(status: String, seconds: Int) {
         val title = getString(R.string.websocket_error, status)
-        val intervalUnit = resources
-            .getQuantityString(R.plurals.websocket_retry_interval, minutes, minutes)
+        val intervalUnit = if (seconds >= 60) {
+            val minutes = seconds / 60
+            resources.getQuantityString(R.plurals.websocket_retry_interval, minutes, minutes)
+        } else {
+            resources.getQuantityString(R.plurals.websocket_retry_interval_seconds, seconds, seconds)
+        }
         showForegroundNotification(
             title,
             "${getString(R.string.websocket_reconnect)} $intervalUnit"

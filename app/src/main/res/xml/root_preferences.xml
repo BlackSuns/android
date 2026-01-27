@@ -51,4 +51,17 @@
             android:summary="@string/setting_summary_prompt_onreceive_intent" />
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/setting_connection">
+        <EditTextPreference
+            android:defaultValue="60"
+            android:key="@string/setting_key_reconnect_interval"
+            android:title="@string/setting_reconnect_interval"
+            android:summary="@string/setting_reconnect_interval_summary" />
+        <SwitchPreferenceCompat
+            android:key="@string/setting_key_backoff"
+            android:title="@string/setting_backoff_title"
+            android:summary="@string/setting_backoff_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

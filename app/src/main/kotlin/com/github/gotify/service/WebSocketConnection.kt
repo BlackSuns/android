@@ -24,7 +24,9 @@ internal class WebSocketConnection(
     private val baseUrl: String,
     settings: SSLSettings,
     private val token: String?,
-    private val alarmManager: AlarmManager
+    private val alarmManager: AlarmManager,
+    private val reconnectInterval: Int,
+    private val disableBackoff: Boolean
 ) {
     companion object {
         private val ID = AtomicLong(0)
@@ -204,10 +206,16 @@ internal class WebSocketConnection(
                 closed()
 
                 errorCount++
-                val minutes = (errorCount * 2 - 1).coerceAtMost(20)
+                val seconds = if (disableBackoff) {
+                    reconnectInterval
+                } else {
+                    ((errorCount * 2 - 1) * reconnectInterval)
+                        .coerceAtMost(TimeUnit.MINUTES.toSeconds(20).toInt())
+                }
 
-                onFailure.execute(response?.message ?: "unreachable", minutes)
-                scheduleReconnect(id, TimeUnit.MINUTES.toSeconds(minutes.toLong()))
+                val rounded = seconds.coerceAtLeast(5)
+                onFailure.execute(response?.message ?: "unreachable", rounded)
+                scheduleReconnect(id, rounded.toLong())
             }
             super.onFailure(webSocket, t, response)
         }
@@ -221,7 +229,7 @@ internal class WebSocketConnection(
     }
 
     internal fun interface OnNetworkFailureRunnable {
-        fun execute(status: String, minutes: Int)
+        fun execute(status: String, seconds: Int)
     }
 
     internal enum class State {
