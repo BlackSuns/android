@@ -127,10 +127,6 @@
     <string name="setting_reconnect_interval">Reconnect Interval (Seconds)</string>
     <string name="setting_key_reconnect_interval">reconnect_interval</string>
     <string name="setting_connection">Connection</string>
-    <string name="reconnect_interval_10_seconds">10 seconds</string>
-    <string name="reconnect_interval_30_seconds">30 seconds</string>
-    <string name="reconnect_interval_1_minute">1 minute (Default)</string>
-    <string name="reconnect_interval_5_minutes">5 minutes</string>
     <string name="setting_reconnect_interval_summary">Wait time between connection attempts</string>
     <string name="setting_backoff_title">Constant Retry Interval</string>
     <string name="setting_backoff_summary">Do not increase wait time between retries</string>
