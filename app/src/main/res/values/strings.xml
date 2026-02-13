@@ -115,22 +115,14 @@
     <string name="action_dialog_button_cancel">Cancel</string>
 
     <string name="websocket_error">Error %s (see logs)</string>
-    <string name="websocket_reconnect">Trying to reconnect</string>
-    <plurals name="websocket_retry_interval">
-        <item quantity="one">in %d minute</item>
-        <item quantity="other">in %d minutes</item>
-    </plurals>
-    <plurals name="websocket_retry_interval_seconds">
-        <item quantity="one">in %d second</item>
-        <item quantity="other">in %d seconds</item>
-    </plurals>
-    <string name="setting_reconnect_interval">Reconnect Interval (Seconds)</string>
-    <string name="setting_key_reconnect_interval">reconnect_interval</string>
+    <string name="websocket_reconnect">Trying to reconnect in %s</string>
+    <string name="setting_reconnect_delay">Reconnect Delay (Seconds)</string>
+    <string name="setting_key_reconnect_delay">reconnect_delay</string>
     <string name="setting_connection">Connection</string>
-    <string name="setting_reconnect_interval_summary">Wait time between connection attempts</string>
-    <string name="setting_backoff_title">Constant Retry Interval</string>
-    <string name="setting_backoff_summary">Do not increase wait time between retries</string>
-    <string name="setting_key_backoff">reconnect_backoff</string>
+    <string name="setting_reconnect_interval_summary">Delay between reconnect attempts</string>
+    <string name="setting_exponential_backoff_title">Exponential Backoff</string>
+    <string name="setting_exponential_backoff_summary">Exponentially increase the reconnect delay for each reconnect attempt</string>
+    <string name="setting_key_exponential_backoff">reconnect_exponential_backoff</string>
 
     <string name="notification_channel_title_foreground">Gotify foreground notification</string>
     <string name="notification_channel_title_min">Min priority messages (&lt;1)</string>

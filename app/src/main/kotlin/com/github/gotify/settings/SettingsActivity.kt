@@ -21,6 +21,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.github.gotify.R
 import com.github.gotify.Utils
 import com.github.gotify.databinding.SettingsActivityBinding
+import com.github.gotify.service.WebSocketService
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 internal class SettingsActivity :
@@ -75,28 +76,23 @@ internal class SettingsActivity :
                 )?.isEnabled = true
             }
             findPreference<androidx.preference.EditTextPreference>(
-                getString(R.string.setting_key_reconnect_interval)
-            )?.let {
-                it.setOnBindEditTextListener { editText ->
-                    editText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
-                }
-                it.onPreferenceChangeListener =
-                    Preference.OnPreferenceChangeListener { _, newValue ->
-                        val value = (newValue as String).trim().toIntOrNull() ?: 60
-                        if (value < 5 || value > 60) {
-                            Utils.showSnackBar(
-                                requireActivity(),
-                                "Please enter a value between 5 and 60"
-                            )
-                            return@OnPreferenceChangeListener false
-                        }
-
-                        requestWebSocketRestart()
-                        true
+                getString(R.string.setting_key_reconnect_delay)
+            )?.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _, newValue ->
+                    val value = (newValue as String).trim().toIntOrNull() ?: 60
+                    if (value !in 5..1200) {
+                        Utils.showSnackBar(
+                            requireActivity(),
+                            "Please enter a value between 5 and 1200"
+                        )
+                        return@OnPreferenceChangeListener false
                     }
-            }
+
+                    requestWebSocketRestart()
+                    true
+                }
             findPreference<SwitchPreferenceCompat>(
-                getString(R.string.setting_key_backoff)
+                getString(R.string.setting_key_exponential_backoff)
             )?.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _, _ ->
                     requestWebSocketRestart()
@@ -105,8 +101,7 @@ internal class SettingsActivity :
         }
 
         private fun requestWebSocketRestart() {
-            val intent =
-                Intent(requireContext(), com.github.gotify.service.WebSocketService::class.java)
+            val intent = Intent(requireContext(), WebSocketService::class.java)
             requireContext().startService(intent)
         }
 
