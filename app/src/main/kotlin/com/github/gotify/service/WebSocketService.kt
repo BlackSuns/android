@@ -115,7 +115,7 @@ internal class WebSocketService : Service() {
             .getString(getString(R.string.setting_key_reconnect_interval), "60")
             ?.trim()
             ?.toIntOrNull() ?: 60
-        
+
         reconnectInterval = reconnectInterval.coerceIn(5, 60)
 
         val disableBackoff = sharedPreferences.getBoolean(
@@ -203,7 +203,11 @@ internal class WebSocketService : Service() {
             val minutes = seconds / 60
             resources.getQuantityString(R.plurals.websocket_retry_interval, minutes, minutes)
         } else {
-            resources.getQuantityString(R.plurals.websocket_retry_interval_seconds, seconds, seconds)
+            resources.getQuantityString(
+                R.plurals.websocket_retry_interval_seconds,
+                seconds,
+                seconds
+            )
         }
         showForegroundNotification(
             title,

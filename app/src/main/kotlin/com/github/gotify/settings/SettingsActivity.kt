@@ -84,7 +84,10 @@ internal class SettingsActivity :
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         val value = (newValue as String).trim().toIntOrNull() ?: 60
                         if (value < 5 || value > 60) {
-                            Utils.showSnackBar(requireActivity(), "Please enter a value between 5 and 60")
+                            Utils.showSnackBar(
+                                requireActivity(),
+                                "Please enter a value between 5 and 60"
+                            )
                             return@OnPreferenceChangeListener false
                         }
 
@@ -102,7 +105,8 @@ internal class SettingsActivity :
         }
 
         private fun requestWebSocketRestart() {
-            val intent = Intent(requireContext(), com.github.gotify.service.WebSocketService::class.java)
+            val intent =
+                Intent(requireContext(), com.github.gotify.service.WebSocketService::class.java)
             requireContext().startService(intent)
         }
 
