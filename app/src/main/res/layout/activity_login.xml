@@ -104,7 +104,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkurl"
@@ -130,7 +129,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"
@@ -158,7 +156,6 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:textColor="@android:color/white"
             android:text="@string/login"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
@@ -190,5 +187,12 @@
             app:layout_constraintTop_toTopOf="@+id/checkurl"
             app:layout_constraintBottom_toBottomOf="@id/checkurl"
             app:srcCompat="@drawable/ic_settings" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/credential_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="username,password,login" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

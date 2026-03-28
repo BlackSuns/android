@@ -24,7 +24,7 @@ import java.util.Set;
 public interface UserApi {
   /**
    * Create a user.
-   * With enabled registration: non admin users can be created without authentication. With disabled registrations: users can only be created by admin users.
+   * With enabled registration: non admin users can be created without authentication. With disabled registrations: users can only be created by admin users.  Requires elevated authentication.
    * @param body the user to add (required)
    * @return Call&lt;User&gt;
    */
@@ -38,7 +38,7 @@ public interface UserApi {
 
   /**
    * Return the current user.
-   * 
+   * Requires elevated authentication.
    * @return Call&lt;User&gt;
    */
   @GET("current/user")
@@ -47,7 +47,7 @@ public interface UserApi {
 
   /**
    * Deletes a user.
-   * 
+   * Requires elevated authentication.
    * @param id the user id (required)
    * @return Call&lt;Void&gt;
    */
@@ -58,7 +58,7 @@ public interface UserApi {
 
   /**
    * Get a user.
-   * 
+   * Requires elevated authentication.
    * @param id the user id (required)
    * @return Call&lt;User&gt;
    */
@@ -69,7 +69,7 @@ public interface UserApi {
 
   /**
    * Return all users.
-   * 
+   * Requires elevated authentication.
    * @return Call&lt;List&lt;User&gt;&gt;
    */
   @GET("user")
@@ -78,7 +78,7 @@ public interface UserApi {
 
   /**
    * Update the password of the current user.
-   * 
+   * Requires elevated authentication.
    * @param body the user (required)
    * @return Call&lt;Void&gt;
    */
@@ -92,7 +92,7 @@ public interface UserApi {
 
   /**
    * Update a user.
-   * 
+   * Requires elevated authentication.
    * @param id the user id (required)
    * @param body the updated user (required)
    * @return Call&lt;User&gt;

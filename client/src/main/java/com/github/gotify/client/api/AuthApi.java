@@ -9,8 +9,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
+import com.github.gotify.client.model.CurrentUser;
 import com.github.gotify.client.model.Error;
-import com.github.gotify.client.model.UserExternal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +23,11 @@ public interface AuthApi {
    * Authenticate via basic auth and create a session.
    * 
    * @param name the client name to create (required)
-   * @return Call&lt;UserExternal&gt;
+   * @return Call&lt;CurrentUser&gt;
    */
   @retrofit2.http.FormUrlEncoded
   @POST("auth/local/login")
-  Call<UserExternal> localLogin(
+  Call<CurrentUser> localLogin(
     @retrofit2.http.Field("name") String name
   );
 

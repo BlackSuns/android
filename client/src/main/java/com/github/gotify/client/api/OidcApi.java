@@ -55,11 +55,23 @@ public interface OidcApi {
    * Exchanges the authorization code for tokens, resolves the user, creates a gotify client, sets a session cookie, and redirects to the UI.
    * @param code the authorization code from the OIDC provider (required)
    * @param state the state parameter for CSRF protection (required)
-   * @return Call&lt;Error&gt;
+   * @return Call&lt;Void&gt;
    */
   @GET("auth/oidc/callback")
-  Call<Error> oidcCallback(
+  Call<Void> oidcCallback(
     @retrofit2.http.Query("code") String code, @retrofit2.http.Query("state") String state
+  );
+
+  /**
+   * Start the OIDC flow to elevate an existing client session (browser).
+   * Redirects the user to the OIDC provider&#39;s authorization endpoint. After successful authentication, the referenced client session is elevated for the requested duration.
+   * @param id the client id to elevate (required)
+   * @param durationSeconds how long the elevation should last, in seconds (required)
+   * @return Call&lt;Error&gt;
+   */
+  @GET("auth/oidc/elevate")
+  Call<Error> oidcElevate(
+    @retrofit2.http.Query("id") Long id, @retrofit2.http.Query("durationSeconds") Integer durationSeconds
   );
 
   /**

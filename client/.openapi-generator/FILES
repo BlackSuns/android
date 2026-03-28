@@ -26,6 +26,8 @@ src/main/java/com/github/gotify/client/model/ApplicationParams.java
 src/main/java/com/github/gotify/client/model/Client.java
 src/main/java/com/github/gotify/client/model/ClientParams.java
 src/main/java/com/github/gotify/client/model/CreateUserExternal.java
+src/main/java/com/github/gotify/client/model/CurrentUser.java
+src/main/java/com/github/gotify/client/model/ElevateRequest.java
 src/main/java/com/github/gotify/client/model/Error.java
 src/main/java/com/github/gotify/client/model/GotifyInfo.java
 src/main/java/com/github/gotify/client/model/Health.java

@@ -24,10 +24,20 @@ import java.io.IOException;
 import java.time.OffsetDateTime;
 
 /**
- * The Client holds information about a device which can receive notifications (and other stuff).
+ * CurrentUserExternal Model
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Client {
+public class CurrentUser {
+  public static final String SERIALIZED_NAME_ADMIN = "admin";
+  @SerializedName(SERIALIZED_NAME_ADMIN)
+  @javax.annotation.Nonnull
+  private Boolean admin;
+
+  public static final String SERIALIZED_NAME_CLIENT_ID = "clientId";
+  @SerializedName(SERIALIZED_NAME_CLIENT_ID)
+  @javax.annotation.Nullable
+  private Long clientId;
+
   public static final String SERIALIZED_NAME_ELEVATED_UNTIL = "elevatedUntil";
   @SerializedName(SERIALIZED_NAME_ELEVATED_UNTIL)
   @javax.annotation.Nullable
@@ -38,42 +48,63 @@ public class Client {
   @javax.annotation.Nonnull
   private Long id;
 
-  public static final String SERIALIZED_NAME_LAST_USED = "lastUsed";
-  @SerializedName(SERIALIZED_NAME_LAST_USED)
-  @javax.annotation.Nullable
-  private OffsetDateTime lastUsed;
-
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   @javax.annotation.Nonnull
   private String name;
 
-  public static final String SERIALIZED_NAME_TOKEN = "token";
-  @SerializedName(SERIALIZED_NAME_TOKEN)
-  @javax.annotation.Nonnull
-  private String token;
-
-  public Client() {
+  public CurrentUser() {
   }
   /**
    * Constructor with only readonly parameters
    */
   
-  public Client(
+  public CurrentUser(
+     Long clientId, 
      OffsetDateTime elevatedUntil, 
-     Long id, 
-     OffsetDateTime lastUsed, 
-     String token
+     Long id
   ) {
     this();
+    this.clientId = clientId;
     this.elevatedUntil = elevatedUntil;
     this.id = id;
-    this.lastUsed = lastUsed;
-    this.token = token;
+  }
+
+  public CurrentUser admin(@javax.annotation.Nonnull Boolean admin) {
+    
+    this.admin = admin;
+    return this;
   }
 
   /**
-   * The time until which this client&#39;s session is elevated.
+   * If the user is an administrator.
+   * @return admin
+   */
+  @javax.annotation.Nonnull
+
+  public Boolean getAdmin() {
+    return admin;
+  }
+
+
+  public void setAdmin(@javax.annotation.Nonnull Boolean admin) {
+    this.admin = admin;
+  }
+
+  /**
+   * The client id of the current session.
+   * @return clientId
+   */
+  @javax.annotation.Nullable
+
+  public Long getClientId() {
+    return clientId;
+  }
+
+
+
+  /**
+   * The time until which the session is elevated.
    * @return elevatedUntil
    */
   @javax.annotation.Nullable
@@ -85,7 +116,7 @@ public class Client {
 
 
   /**
-   * The client id.
+   * The user id.
    * @return id
    */
   @javax.annotation.Nonnull
@@ -96,26 +127,14 @@ public class Client {
 
 
 
-  /**
-   * The last time the client token was used.
-   * @return lastUsed
-   */
-  @javax.annotation.Nullable
-
-  public OffsetDateTime getLastUsed() {
-    return lastUsed;
-  }
-
-
-
-  public Client name(@javax.annotation.Nonnull String name) {
+  public CurrentUser name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
   }
 
   /**
-   * The client name. This is how the client should be displayed to the user.
+   * The user name. For login.
    * @return name
    */
   @javax.annotation.Nonnull
@@ -129,18 +148,6 @@ public class Client {
     this.name = name;
   }
 
-  /**
-   * The client token. Can be used as &#x60;clientToken&#x60;. See Authentication.
-   * @return token
-   */
-  @javax.annotation.Nonnull
-
-  public String getToken() {
-    return token;
-  }
-
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -149,28 +156,28 @@ public class Client {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Client client = (Client) o;
-    return Objects.equals(this.elevatedUntil, client.elevatedUntil) &&
-        Objects.equals(this.id, client.id) &&
-        Objects.equals(this.lastUsed, client.lastUsed) &&
-        Objects.equals(this.name, client.name) &&
-        Objects.equals(this.token, client.token);
+    CurrentUser currentUser = (CurrentUser) o;
+    return Objects.equals(this.admin, currentUser.admin) &&
+        Objects.equals(this.clientId, currentUser.clientId) &&
+        Objects.equals(this.elevatedUntil, currentUser.elevatedUntil) &&
+        Objects.equals(this.id, currentUser.id) &&
+        Objects.equals(this.name, currentUser.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(elevatedUntil, id, lastUsed, name, token);
+    return Objects.hash(admin, clientId, elevatedUntil, id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Client {\n");
+    sb.append("class CurrentUser {\n");
+    sb.append("    admin: ").append(toIndentedString(admin)).append("\n");
+    sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
     sb.append("    elevatedUntil: ").append(toIndentedString(elevatedUntil)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastUsed: ").append(toIndentedString(lastUsed)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();
   }
