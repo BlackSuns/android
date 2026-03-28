@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -107,6 +108,7 @@ internal class LoginActivity : AppCompatActivity() {
         }
         binding.advancedSettings.setOnClickListener { toggleShowAdvanced() }
         binding.login.setOnClickListener { doLogin() }
+        binding.oidcLogin.setOnClickListener { doOidcLogin() }
 
         viewModel.state.observe(this) { render(it) }
         lifecycleScope.launch {
@@ -114,13 +116,23 @@ internal class LoginActivity : AppCompatActivity() {
                 viewModel.events.collect { handleEvent(it) }
             }
         }
+
+        handleOidcCallback(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleOidcCallback(intent)
     }
 
     private fun render(state: LoginState) {
         binding.checkurlProgress.visibility = View.GONE
         binding.loginProgress.visibility = View.GONE
+        binding.oidcLoginProgress.visibility = View.GONE
         binding.checkurl.visibility = View.VISIBLE
         binding.credentialGroup.visibility = View.GONE
+        binding.oidcGroup.visibility = View.GONE
 
         when (state) {
             LoginState.UrlInput -> {
@@ -143,17 +155,35 @@ internal class LoginActivity : AppCompatActivity() {
                 binding.login.visibility = View.GONE
                 binding.loginProgress.visibility = View.VISIBLE
             }
+            LoginState.OidcAuthorizing -> {
+                showReadyState()
+                binding.oidcLogin.visibility = View.GONE
+                binding.oidcLoginProgress.visibility = View.VISIBLE
+            }
+            LoginState.OidcWaitingForCallback -> {
+                showReadyState()
+            }
+            LoginState.OidcExchangingToken -> {
+                binding.checkurl.visibility = View.GONE
+                binding.checkurlProgress.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun showReadyState() {
-        val version = viewModel.gotifyVersion ?: return
-        binding.checkurl.text = getString(R.string.found_gotify_version, version)
+        val info = viewModel.gotifyInfo ?: return
+        binding.checkurl.text = getString(R.string.found_gotify_version, info.version)
         binding.credentialGroup.visibility = View.VISIBLE
+        if (info.oidc) {
+            binding.oidcGroup.visibility = View.VISIBLE
+        }
     }
 
     private fun handleEvent(event: LoginEvent) {
         when (event) {
+            is LoginEvent.OpenBrowser -> {
+                startActivity(Intent(Intent.ACTION_VIEW, event.url.toUri()))
+            }
             LoginEvent.LoginSuccess -> {
                 Utils.showSnackBar(this, getString(R.string.created_client))
                 startActivity(Intent(this, InitializationActivity::class.java))
@@ -184,6 +214,12 @@ internal class LoginActivity : AppCompatActivity() {
             LoginEvent.ClientCreationFailed -> {
                 Utils.showSnackBar(this, getString(R.string.create_client_failed))
             }
+            LoginEvent.OidcAuthorizeFailed -> {
+                Utils.showSnackBar(this, getString(R.string.oidc_authorize_failed))
+            }
+            LoginEvent.OidcTokenExchangeFailed -> {
+                Utils.showSnackBar(this, getString(R.string.oidc_token_exchange_failed))
+            }
         }
     }
 
@@ -206,6 +242,10 @@ internal class LoginActivity : AppCompatActivity() {
         viewModel.login(username, password)
     }
 
+    private fun doOidcLogin() {
+        showClientNameDialog(viewModel::startOidcAuthorize)
+    }
+
     private fun showClientNameDialog(onConfirm: (String) -> Unit) {
         val clientDialogBinding = ClientNameDialogBinding.inflate(layoutInflater)
         val clientDialogEditext = clientDialogBinding.clientNameEditext
@@ -223,6 +263,22 @@ internal class LoginActivity : AppCompatActivity() {
             }
             .setCancelable(false)
             .show()
+    }
+
+    private fun handleOidcCallback(intent: Intent?) {
+        val data = intent?.data ?: return
+        if (!data.toString().startsWith(LoginViewModel.OIDC_REDIRECT_URI)) return
+
+        val code = data.getQueryParameter("code")
+        val state = data.getQueryParameter("state")
+        if (code == null || state == null) {
+            Logger.warn(
+                "OIDC callback missing parameters (code=${code != null}, state=${state != null})"
+            )
+            return
+        }
+
+        viewModel.handleOidcCallback(code, state)
     }
 
     private fun toggleShowAdvanced() {

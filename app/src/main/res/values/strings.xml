@@ -50,6 +50,10 @@
     <string name="select_client_failed">Failed to read client cert: %s</string>
     <string name="certificate_found">Certificate found</string>
     <string name="login">Login</string>
+    <string name="login_with_oidc">Login with OIDC</string>
+    <string name="or">or</string>
+    <string name="oidc_authorize_failed">Failed to start OIDC login</string>
+    <string name="oidc_token_exchange_failed">OIDC login failed</string>
     <string name="check_url">Check URL</string>
     <string name="permissions_dialog_grant">Grant</string>
     <string name="permissions_notification_denied_temp">Gotify requires permission to display push notifications.</string>
