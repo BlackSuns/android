@@ -21,82 +21,59 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 
 /**
- * The Client holds information about a device which can receive notifications (and other stuff).
+ * Used to initiate the OIDC authorization flow for an external client.
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Client {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+public class OIDCExternalAuthorizeRequest {
+  public static final String SERIALIZED_NAME_CODE_CHALLENGE = "code_challenge";
+  @SerializedName(SERIALIZED_NAME_CODE_CHALLENGE)
   @javax.annotation.Nonnull
-  private Long id;
-
-  public static final String SERIALIZED_NAME_LAST_USED = "lastUsed";
-  @SerializedName(SERIALIZED_NAME_LAST_USED)
-  @javax.annotation.Nullable
-  private OffsetDateTime lastUsed;
+  private String codeChallenge;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   @javax.annotation.Nonnull
   private String name;
 
-  public static final String SERIALIZED_NAME_TOKEN = "token";
-  @SerializedName(SERIALIZED_NAME_TOKEN)
+  public static final String SERIALIZED_NAME_REDIRECT_URI = "redirect_uri";
+  @SerializedName(SERIALIZED_NAME_REDIRECT_URI)
   @javax.annotation.Nonnull
-  private String token;
+  private String redirectUri;
 
-  public Client() {
+  public OIDCExternalAuthorizeRequest() {
   }
-  /**
-   * Constructor with only readonly parameters
-   */
-  
-  public Client(
-     Long id, 
-     OffsetDateTime lastUsed, 
-     String token
-  ) {
-    this();
-    this.id = id;
-    this.lastUsed = lastUsed;
-    this.token = token;
+
+  public OIDCExternalAuthorizeRequest codeChallenge(@javax.annotation.Nonnull String codeChallenge) {
+    
+    this.codeChallenge = codeChallenge;
+    return this;
   }
 
   /**
-   * The client id.
-   * @return id
+   * The PKCE code challenge (S256).
+   * @return codeChallenge
    */
   @javax.annotation.Nonnull
 
-  public Long getId() {
-    return id;
+  public String getCodeChallenge() {
+    return codeChallenge;
   }
 
 
-
-  /**
-   * The last time the client token was used.
-   * @return lastUsed
-   */
-  @javax.annotation.Nullable
-
-  public OffsetDateTime getLastUsed() {
-    return lastUsed;
+  public void setCodeChallenge(@javax.annotation.Nonnull String codeChallenge) {
+    this.codeChallenge = codeChallenge;
   }
 
-
-
-  public Client name(@javax.annotation.Nonnull String name) {
+  public OIDCExternalAuthorizeRequest name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
   }
 
   /**
-   * The client name. This is how the client should be displayed to the user.
+   * The client name to display in gotify.
    * @return name
    */
   @javax.annotation.Nonnull
@@ -110,17 +87,26 @@ public class Client {
     this.name = name;
   }
 
+  public OIDCExternalAuthorizeRequest redirectUri(@javax.annotation.Nonnull String redirectUri) {
+    
+    this.redirectUri = redirectUri;
+    return this;
+  }
+
   /**
-   * The client token. Can be used as &#x60;clientToken&#x60;. See Authentication.
-   * @return token
+   * The app&#39;s redirect URI.
+   * @return redirectUri
    */
   @javax.annotation.Nonnull
 
-  public String getToken() {
-    return token;
+  public String getRedirectUri() {
+    return redirectUri;
   }
 
 
+  public void setRedirectUri(@javax.annotation.Nonnull String redirectUri) {
+    this.redirectUri = redirectUri;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -130,26 +116,24 @@ public class Client {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Client client = (Client) o;
-    return Objects.equals(this.id, client.id) &&
-        Objects.equals(this.lastUsed, client.lastUsed) &&
-        Objects.equals(this.name, client.name) &&
-        Objects.equals(this.token, client.token);
+    OIDCExternalAuthorizeRequest oiDCExternalAuthorizeRequest = (OIDCExternalAuthorizeRequest) o;
+    return Objects.equals(this.codeChallenge, oiDCExternalAuthorizeRequest.codeChallenge) &&
+        Objects.equals(this.name, oiDCExternalAuthorizeRequest.name) &&
+        Objects.equals(this.redirectUri, oiDCExternalAuthorizeRequest.redirectUri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, lastUsed, name, token);
+    return Objects.hash(codeChallenge, name, redirectUri);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Client {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastUsed: ").append(toIndentedString(lastUsed)).append("\n");
+    sb.append("class OIDCExternalAuthorizeRequest {\n");
+    sb.append("    codeChallenge: ").append(toIndentedString(codeChallenge)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    token: ").append(toIndentedString(token)).append("\n");
+    sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
     sb.append("}");
     return sb.toString();
   }

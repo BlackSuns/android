@@ -26,7 +26,7 @@ After the client library is installed/deployed, you can use it in your Maven pro
 <dependency>
     <groupId>org.openapitools</groupId>
     <artifactId>openapi-java-client</artifactId>
-    <version>2.0.2</version>
+    <version>2.1.0</version>
     <scope>compile</scope>
 </dependency>
 

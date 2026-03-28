@@ -23,99 +23,90 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * The Paging holds information about the limit and making requests to the next page.
+ * GotifyInfo Model
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Paging {
-  public static final String SERIALIZED_NAME_LIMIT = "limit";
-  @SerializedName(SERIALIZED_NAME_LIMIT)
+public class GotifyInfo {
+  public static final String SERIALIZED_NAME_OIDC = "oidc";
+  @SerializedName(SERIALIZED_NAME_OIDC)
   @javax.annotation.Nonnull
-  private Long limit;
+  private Boolean oidc;
 
-  public static final String SERIALIZED_NAME_NEXT = "next";
-  @SerializedName(SERIALIZED_NAME_NEXT)
-  @javax.annotation.Nullable
-  private String next;
-
-  public static final String SERIALIZED_NAME_SINCE = "since";
-  @SerializedName(SERIALIZED_NAME_SINCE)
+  public static final String SERIALIZED_NAME_REGISTER = "register";
+  @SerializedName(SERIALIZED_NAME_REGISTER)
   @javax.annotation.Nonnull
-  private Long since;
+  private Boolean register;
 
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
+  public static final String SERIALIZED_NAME_VERSION = "version";
+  @SerializedName(SERIALIZED_NAME_VERSION)
   @javax.annotation.Nonnull
-  private Long size;
+  private String version;
 
-  public Paging() {
+  public GotifyInfo() {
   }
-  /**
-   * Constructor with only readonly parameters
-   */
-  
-  public Paging(
-     Long limit, 
-     String next, 
-     Long since, 
-     Long size
-  ) {
-    this();
-    this.limit = limit;
-    this.next = next;
-    this.since = since;
-    this.size = size;
+
+  public GotifyInfo oidc(@javax.annotation.Nonnull Boolean oidc) {
+    
+    this.oidc = oidc;
+    return this;
   }
 
   /**
-   * The limit of the messages for the current request.
-   * minimum: 1
-   * maximum: 200
-   * @return limit
+   * If oidc is enabled.
+   * @return oidc
    */
   @javax.annotation.Nonnull
 
-  public Long getLimit() {
-    return limit;
+  public Boolean getOidc() {
+    return oidc;
   }
 
 
-
-  /**
-   * The request url for the next page. Empty/Null when no next page is available.
-   * @return next
-   */
-  @javax.annotation.Nullable
-
-  public String getNext() {
-    return next;
+  public void setOidc(@javax.annotation.Nonnull Boolean oidc) {
+    this.oidc = oidc;
   }
 
-
+  public GotifyInfo register(@javax.annotation.Nonnull Boolean register) {
+    
+    this.register = register;
+    return this;
+  }
 
   /**
-   * The ID of the last message returned in the current request. Use this as alternative to the next link.
-   * minimum: 0
-   * @return since
+   * If registration is enabled.
+   * @return register
    */
   @javax.annotation.Nonnull
 
-  public Long getSince() {
-    return since;
+  public Boolean getRegister() {
+    return register;
   }
 
 
+  public void setRegister(@javax.annotation.Nonnull Boolean register) {
+    this.register = register;
+  }
+
+  public GotifyInfo version(@javax.annotation.Nonnull String version) {
+    
+    this.version = version;
+    return this;
+  }
 
   /**
-   * The amount of messages that got returned in the current request.
-   * @return size
+   * The current version.
+   * @return version
    */
   @javax.annotation.Nonnull
 
-  public Long getSize() {
-    return size;
+  public String getVersion() {
+    return version;
   }
 
 
+  public void setVersion(@javax.annotation.Nonnull String version) {
+    this.version = version;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -125,26 +116,24 @@ public class Paging {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Paging paging = (Paging) o;
-    return Objects.equals(this.limit, paging.limit) &&
-        Objects.equals(this.next, paging.next) &&
-        Objects.equals(this.since, paging.since) &&
-        Objects.equals(this.size, paging.size);
+    GotifyInfo gotifyInfo = (GotifyInfo) o;
+    return Objects.equals(this.oidc, gotifyInfo.oidc) &&
+        Objects.equals(this.register, gotifyInfo.register) &&
+        Objects.equals(this.version, gotifyInfo.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(limit, next, since, size);
+    return Objects.hash(oidc, register, version);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Paging {\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    next: ").append(toIndentedString(next)).append("\n");
-    sb.append("    since: ").append(toIndentedString(since)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("class GotifyInfo {\n");
+    sb.append("    oidc: ").append(toIndentedString(oidc)).append("\n");
+    sb.append("    register: ").append(toIndentedString(register)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
   }

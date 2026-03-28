@@ -15,6 +15,7 @@ package com.github.gotify.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.github.gotify.client.model.User;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -23,99 +24,64 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * The Paging holds information about the limit and making requests to the next page.
+ * Returned after a successful token exchange.
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Paging {
-  public static final String SERIALIZED_NAME_LIMIT = "limit";
-  @SerializedName(SERIALIZED_NAME_LIMIT)
+public class OIDCExternalTokenResponse {
+  public static final String SERIALIZED_NAME_TOKEN = "token";
+  @SerializedName(SERIALIZED_NAME_TOKEN)
   @javax.annotation.Nonnull
-  private Long limit;
+  private String token;
 
-  public static final String SERIALIZED_NAME_NEXT = "next";
-  @SerializedName(SERIALIZED_NAME_NEXT)
-  @javax.annotation.Nullable
-  private String next;
-
-  public static final String SERIALIZED_NAME_SINCE = "since";
-  @SerializedName(SERIALIZED_NAME_SINCE)
+  public static final String SERIALIZED_NAME_USER = "user";
+  @SerializedName(SERIALIZED_NAME_USER)
   @javax.annotation.Nonnull
-  private Long since;
+  private User user;
 
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  @javax.annotation.Nonnull
-  private Long size;
-
-  public Paging() {
+  public OIDCExternalTokenResponse() {
   }
-  /**
-   * Constructor with only readonly parameters
-   */
-  
-  public Paging(
-     Long limit, 
-     String next, 
-     Long since, 
-     Long size
-  ) {
-    this();
-    this.limit = limit;
-    this.next = next;
-    this.since = since;
-    this.size = size;
+
+  public OIDCExternalTokenResponse token(@javax.annotation.Nonnull String token) {
+    
+    this.token = token;
+    return this;
   }
 
   /**
-   * The limit of the messages for the current request.
-   * minimum: 1
-   * maximum: 200
-   * @return limit
+   * The gotify client token for API authentication.
+   * @return token
    */
   @javax.annotation.Nonnull
 
-  public Long getLimit() {
-    return limit;
+  public String getToken() {
+    return token;
   }
 
 
-
-  /**
-   * The request url for the next page. Empty/Null when no next page is available.
-   * @return next
-   */
-  @javax.annotation.Nullable
-
-  public String getNext() {
-    return next;
+  public void setToken(@javax.annotation.Nonnull String token) {
+    this.token = token;
   }
 
-
+  public OIDCExternalTokenResponse user(@javax.annotation.Nonnull User user) {
+    
+    this.user = user;
+    return this;
+  }
 
   /**
-   * The ID of the last message returned in the current request. Use this as alternative to the next link.
-   * minimum: 0
-   * @return since
+   * Get user
+   * @return user
    */
   @javax.annotation.Nonnull
 
-  public Long getSince() {
-    return since;
+  public User getUser() {
+    return user;
   }
 
 
-
-  /**
-   * The amount of messages that got returned in the current request.
-   * @return size
-   */
-  @javax.annotation.Nonnull
-
-  public Long getSize() {
-    return size;
+  public void setUser(@javax.annotation.Nonnull User user) {
+    this.user = user;
   }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -125,26 +91,22 @@ public class Paging {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Paging paging = (Paging) o;
-    return Objects.equals(this.limit, paging.limit) &&
-        Objects.equals(this.next, paging.next) &&
-        Objects.equals(this.since, paging.since) &&
-        Objects.equals(this.size, paging.size);
+    OIDCExternalTokenResponse oiDCExternalTokenResponse = (OIDCExternalTokenResponse) o;
+    return Objects.equals(this.token, oiDCExternalTokenResponse.token) &&
+        Objects.equals(this.user, oiDCExternalTokenResponse.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(limit, next, since, size);
+    return Objects.hash(token, user);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Paging {\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    next: ").append(toIndentedString(next)).append("\n");
-    sb.append("    since: ").append(toIndentedString(since)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("class OIDCExternalTokenResponse {\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();
   }
