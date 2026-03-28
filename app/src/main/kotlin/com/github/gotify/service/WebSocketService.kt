@@ -235,7 +235,7 @@ internal class WebSocketService : Service() {
         messages.forEach { message ->
             if (lastReceivedMessage.get() < message.id) {
                 lastReceivedMessage.set(message.id)
-                highestPriority = highestPriority.coerceAtLeast(message.priority)
+                highestPriority = highestPriority.coerceAtLeast(message.priority ?: 0L)
             }
             broadcast(message)
         }
@@ -256,9 +256,9 @@ internal class WebSocketService : Service() {
         broadcast(message)
         showNotification(
             message.id,
-            message.title,
+            message.title ?: "",
             message.message,
-            message.priority,
+            message.priority ?: 0L,
             message.extras,
             message.appid
         )

@@ -7,6 +7,7 @@ import retrofit2.http.*;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okhttp3.MultipartBody;
 
 import com.github.gotify.client.model.Application;
 import com.github.gotify.client.model.ApplicationParams;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface ApplicationApi {
   /**
@@ -67,8 +69,8 @@ public interface ApplicationApi {
   /**
    * Update an application.
    * 
-   * @param body the application to update (required)
    * @param id the application id (required)
+   * @param body the application to update (required)
    * @return Call&lt;Application&gt;
    */
   @Headers({
@@ -76,20 +78,20 @@ public interface ApplicationApi {
   })
   @PUT("application/{id}")
   Call<Application> updateApplication(
-    @retrofit2.http.Body ApplicationParams body, @retrofit2.http.Path("id") Long id
+    @retrofit2.http.Path("id") Long id, @retrofit2.http.Body ApplicationParams body
   );
 
   /**
    * Upload an image for an application.
    * 
-   * @param file  (required)
    * @param id the application id (required)
+   * @param _file the application image (required)
    * @return Call&lt;Application&gt;
    */
   @retrofit2.http.Multipart
   @POST("application/{id}/image")
   Call<Application> uploadAppImage(
-    @retrofit2.http.Part("file\"; filename=\"file") RequestBody file, @retrofit2.http.Path("id") Long id
+    @retrofit2.http.Path("id") Long id, @retrofit2.http.Part MultipartBody.Part _file
   );
 
 }

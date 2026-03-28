@@ -13,7 +13,7 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.github.gotify"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 36
         versionCode = 34
         versionName = "2.9.0"
@@ -101,7 +101,7 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.13.1")
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("org.threeten:threetenbp:1.7.1")
+
 }
 
 configurations {
