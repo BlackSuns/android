@@ -1,11 +1,10 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import java.io.File
 import java.net.URI
 
 plugins {
     id("com.android.application") version "8.11.0" apply false
     id("org.jetbrains.kotlin.android") version "2.2.0" apply false
-    id("org.hidetake.swagger.generator") version "2.19.2"
+    id("org.openapi.generator") version "7.19.0"
 }
 
 fun download(url: String, filename: String) {
@@ -29,19 +28,23 @@ tasks.register("downloadSpec") {
     }
 }
 
-swaggerSources {
-    create("swagger") {
-        setInputFile(file("$projectDir/build/gotify.spec.json"))
-        code.apply {
-            language = "java"
-            configFile = file("$projectDir/swagger.config.json")
-            outputDir = file("$projectDir/client")
-        }
-    }
+openApiGenerate {
+    generatorName.set("java")
+    inputSpec.set("$projectDir/build/gotify.spec.json")
+    outputDir.set("$projectDir/client")
+    apiPackage.set("com.github.gotify.client.api")
+    modelPackage.set("com.github.gotify.client.model")
+    configOptions.set(mapOf(
+        "library" to "retrofit2",
+        "hideGenerationTimestamp" to "true",
+        "dateLibrary" to "java8"
+    ))
+    generateApiTests.set(false)
+    generateModelTests.set(false)
+    generateApiDocumentation.set(false)
+    generateModelDocumentation.set(false)
 }
 
-dependencies {
-    "swaggerCodegen"("io.swagger.codegen.v3:swagger-codegen-cli:3.0.63")
+tasks.named("openApiGenerate").configure {
+    dependsOn("downloadSpec")
 }
-
-tasks.named("generateSwaggerCode").dependsOn("downloadSpec")

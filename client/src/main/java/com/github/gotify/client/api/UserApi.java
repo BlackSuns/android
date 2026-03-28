@@ -7,6 +7,7 @@ import retrofit2.http.*;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okhttp3.MultipartBody;
 
 import com.github.gotify.client.model.CreateUserExternal;
 import com.github.gotify.client.model.Error;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface UserApi {
   /**
@@ -91,8 +93,8 @@ public interface UserApi {
   /**
    * Update a user.
    * 
-   * @param body the updated user (required)
    * @param id the user id (required)
+   * @param body the updated user (required)
    * @return Call&lt;User&gt;
    */
   @Headers({
@@ -100,7 +102,7 @@ public interface UserApi {
   })
   @POST("user/{id}")
   Call<User> updateUser(
-    @retrofit2.http.Body UpdateUserExternal body, @retrofit2.http.Path("id") Long id
+    @retrofit2.http.Path("id") Long id, @retrofit2.http.Body UpdateUserExternal body
   );
 
 }
