@@ -30,8 +30,8 @@ import com.github.gotify.databinding.MessageItemCompactBinding
 import com.github.gotify.messages.provider.MessageWithImage
 import io.noties.markwon.Markwon
 import java.text.DateFormat
+import java.time.OffsetDateTime
 import java.util.Date
-import org.threeten.bp.OffsetDateTime
 
 internal class ListMessageAdapter(
     private val context: Context,

@@ -138,7 +138,7 @@ internal class InitializationActivity : AppCompatActivity() {
     private fun authenticated(user: User) {
         Logger.info("Authenticated as ${user.name}")
 
-        settings.setUser(user.name, user.isAdmin)
+        settings.setUser(user.name, user.admin)
         requestVersion {
             splashScreenActive = false
             startActivity(Intent(this, MessagesActivity::class.java))
