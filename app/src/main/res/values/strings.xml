@@ -25,7 +25,7 @@
     <string name="grouped_message">Received %d messages while being disconnected</string>
     <string name="delete_all">Delete all messages</string>
     <string name="delete_app">Delete application</string>
-    <string name="error_delete_app">Could not delete this app</string>
+    <string name="delete_app_not_supported">Deleting applications is not currently supported. Use the WebUI.</string>
     <string name="delete_logs">Delete logs</string>
     <string name="copy_logs">Copy logs</string>
     <string name="logs_copied">Logs copied</string>

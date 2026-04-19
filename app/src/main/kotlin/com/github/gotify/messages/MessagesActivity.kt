@@ -41,15 +41,12 @@ import com.github.gotify.Utils
 import com.github.gotify.Utils.launchCoroutine
 import com.github.gotify.api.Api
 import com.github.gotify.api.ApiException
-import com.github.gotify.api.Callback
 import com.github.gotify.api.ClientFactory
 import com.github.gotify.client.ApiClient
-import com.github.gotify.client.api.ApplicationApi
 import com.github.gotify.client.api.AuthApi
 import com.github.gotify.client.api.ClientApi
 import com.github.gotify.client.api.MessageApi
 import com.github.gotify.client.model.Application
-import com.github.gotify.client.model.Client
 import com.github.gotify.client.model.Message
 import com.github.gotify.databinding.ActivityMessagesBinding
 import com.github.gotify.init.InitializationActivity
@@ -540,26 +537,11 @@ internal class MessagesActivity :
         if (item.itemId == R.id.action_delete_app) {
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.delete_app)
-                .setMessage(R.string.ack)
-                .setPositiveButton(R.string.yes) { _, _ -> deleteApp(viewModel.appId) }
-                .setNegativeButton(R.string.no, null)
+                .setMessage(R.string.delete_app_not_supported)
+                .setPositiveButton(android.R.string.ok, null)
                 .show()
         }
         return super.onContextItemSelected(item)
-    }
-
-    private fun deleteApp(appId: Long) {
-        val settings = viewModel.settings
-        val client = ClientFactory.clientToken(settings)
-        client.createService(ApplicationApi::class.java)
-            .deleteApp(appId)
-            .enqueue(
-                Callback.callInUI(
-                    this,
-                    onSuccess = { refreshAll() },
-                    onError = { Utils.showSnackBar(this, getString(R.string.error_delete_app)) }
-                )
-            )
     }
 
     private suspend fun loadMore(appId: Long): List<MessageWithImage> {
