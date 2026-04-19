@@ -36,13 +36,16 @@ import com.github.gotify.BuildConfig
 import com.github.gotify.CoilInstance
 import com.github.gotify.MissedMessageUtil
 import com.github.gotify.R
+import com.github.gotify.Settings
 import com.github.gotify.Utils
 import com.github.gotify.Utils.launchCoroutine
 import com.github.gotify.api.Api
 import com.github.gotify.api.ApiException
 import com.github.gotify.api.Callback
 import com.github.gotify.api.ClientFactory
+import com.github.gotify.client.ApiClient
 import com.github.gotify.client.api.ApplicationApi
+import com.github.gotify.client.api.AuthApi
 import com.github.gotify.client.api.ClientApi
 import com.github.gotify.client.api.MessageApi
 import com.github.gotify.client.model.Application
@@ -605,17 +608,31 @@ internal class MessagesActivity :
 
     private fun deleteClientAndNavigateToLogin() {
         val settings = viewModel.settings
-        val api = ClientFactory.clientToken(settings).createService(ClientApi::class.java)
+        val tokenClient = ClientFactory.clientToken(settings)
         stopService(Intent(this@MessagesActivity, WebSocketService::class.java))
         try {
-            val clients = Api.execute(api.clients)
-            var currentClient: Client? = null
-            for (client in clients) {
-                if (client.token == settings.token) {
-                    currentClient = client
-                    break
-                }
+            Logger.info("Logging out...")
+            val authApi = tokenClient.createService(AuthApi::class.java)
+            Api.execute(authApi.logout())
+        } catch (e: ApiException) {
+            if (e.code == 404) {
+                Logger.info("Logout endpoint not available, falling back to client deletion")
+                deleteCurrentClient(tokenClient, settings)
+            } else {
+                Logger.error(e, "Could not logout")
             }
+        }
+
+        viewModel.settings.clear()
+        startActivity(Intent(this@MessagesActivity, LoginActivity::class.java))
+        finish()
+    }
+
+    private fun deleteCurrentClient(tokenClient: ApiClient, settings: Settings) {
+        val api = tokenClient.createService(ClientApi::class.java)
+        try {
+            val clients = Api.execute(api.clients)
+            val currentClient = clients.firstOrNull { it.token == settings.token }
             if (currentClient != null) {
                 Logger.info("Delete client with id " + currentClient.id)
                 Api.execute(api.deleteClient(currentClient.id))
@@ -625,10 +642,6 @@ internal class MessagesActivity :
         } catch (e: ApiException) {
             Logger.error(e, "Could not delete client")
         }
-
-        viewModel.settings.clear()
-        startActivity(Intent(this@MessagesActivity, LoginActivity::class.java))
-        finish()
     }
 
     private fun updateMessagesAndStopLoading(messageWithImages: List<MessageWithImage>) {
