@@ -23,99 +23,64 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * The Paging holds information about the limit and making requests to the next page.
+ * Returned after initiating the OIDC authorization flow.
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Paging {
-  public static final String SERIALIZED_NAME_LIMIT = "limit";
-  @SerializedName(SERIALIZED_NAME_LIMIT)
+public class OIDCExternalAuthorizeResponse {
+  public static final String SERIALIZED_NAME_AUTHORIZE_URL = "authorize_url";
+  @SerializedName(SERIALIZED_NAME_AUTHORIZE_URL)
   @javax.annotation.Nonnull
-  private Long limit;
+  private String authorizeUrl;
 
-  public static final String SERIALIZED_NAME_NEXT = "next";
-  @SerializedName(SERIALIZED_NAME_NEXT)
-  @javax.annotation.Nullable
-  private String next;
-
-  public static final String SERIALIZED_NAME_SINCE = "since";
-  @SerializedName(SERIALIZED_NAME_SINCE)
+  public static final String SERIALIZED_NAME_STATE = "state";
+  @SerializedName(SERIALIZED_NAME_STATE)
   @javax.annotation.Nonnull
-  private Long since;
+  private String state;
 
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  @javax.annotation.Nonnull
-  private Long size;
-
-  public Paging() {
+  public OIDCExternalAuthorizeResponse() {
   }
-  /**
-   * Constructor with only readonly parameters
-   */
-  
-  public Paging(
-     Long limit, 
-     String next, 
-     Long since, 
-     Long size
-  ) {
-    this();
-    this.limit = limit;
-    this.next = next;
-    this.since = since;
-    this.size = size;
+
+  public OIDCExternalAuthorizeResponse authorizeUrl(@javax.annotation.Nonnull String authorizeUrl) {
+    
+    this.authorizeUrl = authorizeUrl;
+    return this;
   }
 
   /**
-   * The limit of the messages for the current request.
-   * minimum: 1
-   * maximum: 200
-   * @return limit
+   * The URL to open in the browser to authenticate with the OIDC provider.
+   * @return authorizeUrl
    */
   @javax.annotation.Nonnull
 
-  public Long getLimit() {
-    return limit;
+  public String getAuthorizeUrl() {
+    return authorizeUrl;
   }
 
 
-
-  /**
-   * The request url for the next page. Empty/Null when no next page is available.
-   * @return next
-   */
-  @javax.annotation.Nullable
-
-  public String getNext() {
-    return next;
+  public void setAuthorizeUrl(@javax.annotation.Nonnull String authorizeUrl) {
+    this.authorizeUrl = authorizeUrl;
   }
 
-
+  public OIDCExternalAuthorizeResponse state(@javax.annotation.Nonnull String state) {
+    
+    this.state = state;
+    return this;
+  }
 
   /**
-   * The ID of the last message returned in the current request. Use this as alternative to the next link.
-   * minimum: 0
-   * @return since
+   * The state parameter to send back with the token exchange request.
+   * @return state
    */
   @javax.annotation.Nonnull
 
-  public Long getSince() {
-    return since;
+  public String getState() {
+    return state;
   }
 
 
-
-  /**
-   * The amount of messages that got returned in the current request.
-   * @return size
-   */
-  @javax.annotation.Nonnull
-
-  public Long getSize() {
-    return size;
+  public void setState(@javax.annotation.Nonnull String state) {
+    this.state = state;
   }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -125,26 +90,22 @@ public class Paging {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Paging paging = (Paging) o;
-    return Objects.equals(this.limit, paging.limit) &&
-        Objects.equals(this.next, paging.next) &&
-        Objects.equals(this.since, paging.since) &&
-        Objects.equals(this.size, paging.size);
+    OIDCExternalAuthorizeResponse oiDCExternalAuthorizeResponse = (OIDCExternalAuthorizeResponse) o;
+    return Objects.equals(this.authorizeUrl, oiDCExternalAuthorizeResponse.authorizeUrl) &&
+        Objects.equals(this.state, oiDCExternalAuthorizeResponse.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(limit, next, since, size);
+    return Objects.hash(authorizeUrl, state);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Paging {\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    next: ").append(toIndentedString(next)).append("\n");
-    sb.append("    since: ").append(toIndentedString(since)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("class OIDCExternalAuthorizeResponse {\n");
+    sb.append("    authorizeUrl: ").append(toIndentedString(authorizeUrl)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("}");
     return sb.toString();
   }

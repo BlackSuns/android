@@ -167,7 +167,7 @@ internal class InitializationActivity : AppCompatActivity() {
         callback: SuccessCallback<VersionInfo>,
         errorCallback: Callback.ErrorCallback
     ) {
-        ClientFactory.versionApi(settings)
+        ClientFactory.infoApi(settings)
             .version
             .enqueue(Callback.callInUI(this, callback, errorCallback))
     }

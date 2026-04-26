@@ -23,89 +23,89 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * The Error contains error relevant information.
+ * Used to initiate the OIDC authorization flow for an external client.
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Error {
-  public static final String SERIALIZED_NAME_ERROR = "error";
-  @SerializedName(SERIALIZED_NAME_ERROR)
+public class OIDCExternalAuthorizeRequest {
+  public static final String SERIALIZED_NAME_CODE_CHALLENGE = "code_challenge";
+  @SerializedName(SERIALIZED_NAME_CODE_CHALLENGE)
   @javax.annotation.Nonnull
-  private String error;
+  private String codeChallenge;
 
-  public static final String SERIALIZED_NAME_ERROR_CODE = "errorCode";
-  @SerializedName(SERIALIZED_NAME_ERROR_CODE)
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
   @javax.annotation.Nonnull
-  private Long errorCode;
+  private String name;
 
-  public static final String SERIALIZED_NAME_ERROR_DESCRIPTION = "errorDescription";
-  @SerializedName(SERIALIZED_NAME_ERROR_DESCRIPTION)
+  public static final String SERIALIZED_NAME_REDIRECT_URI = "redirect_uri";
+  @SerializedName(SERIALIZED_NAME_REDIRECT_URI)
   @javax.annotation.Nonnull
-  private String errorDescription;
+  private String redirectUri;
 
-  public Error() {
+  public OIDCExternalAuthorizeRequest() {
   }
 
-  public Error error(@javax.annotation.Nonnull String error) {
+  public OIDCExternalAuthorizeRequest codeChallenge(@javax.annotation.Nonnull String codeChallenge) {
     
-    this.error = error;
+    this.codeChallenge = codeChallenge;
     return this;
   }
 
   /**
-   * The general error message
-   * @return error
+   * The PKCE code challenge (S256).
+   * @return codeChallenge
    */
   @javax.annotation.Nonnull
 
-  public String getError() {
-    return error;
+  public String getCodeChallenge() {
+    return codeChallenge;
   }
 
 
-  public void setError(@javax.annotation.Nonnull String error) {
-    this.error = error;
+  public void setCodeChallenge(@javax.annotation.Nonnull String codeChallenge) {
+    this.codeChallenge = codeChallenge;
   }
 
-  public Error errorCode(@javax.annotation.Nonnull Long errorCode) {
+  public OIDCExternalAuthorizeRequest name(@javax.annotation.Nonnull String name) {
     
-    this.errorCode = errorCode;
+    this.name = name;
     return this;
   }
 
   /**
-   * The http error code.
-   * @return errorCode
+   * The client name to display in gotify.
+   * @return name
    */
   @javax.annotation.Nonnull
 
-  public Long getErrorCode() {
-    return errorCode;
+  public String getName() {
+    return name;
   }
 
 
-  public void setErrorCode(@javax.annotation.Nonnull Long errorCode) {
-    this.errorCode = errorCode;
+  public void setName(@javax.annotation.Nonnull String name) {
+    this.name = name;
   }
 
-  public Error errorDescription(@javax.annotation.Nonnull String errorDescription) {
+  public OIDCExternalAuthorizeRequest redirectUri(@javax.annotation.Nonnull String redirectUri) {
     
-    this.errorDescription = errorDescription;
+    this.redirectUri = redirectUri;
     return this;
   }
 
   /**
-   * The http error code.
-   * @return errorDescription
+   * The app&#39;s redirect URI.
+   * @return redirectUri
    */
   @javax.annotation.Nonnull
 
-  public String getErrorDescription() {
-    return errorDescription;
+  public String getRedirectUri() {
+    return redirectUri;
   }
 
 
-  public void setErrorDescription(@javax.annotation.Nonnull String errorDescription) {
-    this.errorDescription = errorDescription;
+  public void setRedirectUri(@javax.annotation.Nonnull String redirectUri) {
+    this.redirectUri = redirectUri;
   }
 
   @Override
@@ -116,24 +116,24 @@ public class Error {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Error error = (Error) o;
-    return Objects.equals(this.error, error.error) &&
-        Objects.equals(this.errorCode, error.errorCode) &&
-        Objects.equals(this.errorDescription, error.errorDescription);
+    OIDCExternalAuthorizeRequest oiDCExternalAuthorizeRequest = (OIDCExternalAuthorizeRequest) o;
+    return Objects.equals(this.codeChallenge, oiDCExternalAuthorizeRequest.codeChallenge) &&
+        Objects.equals(this.name, oiDCExternalAuthorizeRequest.name) &&
+        Objects.equals(this.redirectUri, oiDCExternalAuthorizeRequest.redirectUri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(error, errorCode, errorDescription);
+    return Objects.hash(codeChallenge, name, redirectUri);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Error {\n");
-    sb.append("    error: ").append(toIndentedString(error)).append("\n");
-    sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
-    sb.append("    errorDescription: ").append(toIndentedString(errorDescription)).append("\n");
+    sb.append("class OIDCExternalAuthorizeRequest {\n");
+    sb.append("    codeChallenge: ").append(toIndentedString(codeChallenge)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -104,8 +104,3 @@ dependencies {
 
 }
 
-configurations {
-    configureEach {
-        exclude(group = "androidx.lifecycle", module = "lifecycle-viewmodel-ktx")
-    }
-}

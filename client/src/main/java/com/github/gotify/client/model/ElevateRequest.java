@@ -23,99 +23,64 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * The Paging holds information about the limit and making requests to the next page.
+ * ElevateRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class Paging {
-  public static final String SERIALIZED_NAME_LIMIT = "limit";
-  @SerializedName(SERIALIZED_NAME_LIMIT)
+public class ElevateRequest {
+  public static final String SERIALIZED_NAME_DURATION_SECONDS = "durationSeconds";
+  @SerializedName(SERIALIZED_NAME_DURATION_SECONDS)
   @javax.annotation.Nonnull
-  private Long limit;
+  private Long durationSeconds;
 
-  public static final String SERIALIZED_NAME_NEXT = "next";
-  @SerializedName(SERIALIZED_NAME_NEXT)
-  @javax.annotation.Nullable
-  private String next;
-
-  public static final String SERIALIZED_NAME_SINCE = "since";
-  @SerializedName(SERIALIZED_NAME_SINCE)
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
   @javax.annotation.Nonnull
-  private Long since;
+  private Long id;
 
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  @javax.annotation.Nonnull
-  private Long size;
-
-  public Paging() {
+  public ElevateRequest() {
   }
-  /**
-   * Constructor with only readonly parameters
-   */
-  
-  public Paging(
-     Long limit, 
-     String next, 
-     Long since, 
-     Long size
-  ) {
-    this();
-    this.limit = limit;
-    this.next = next;
-    this.since = since;
-    this.size = size;
+
+  public ElevateRequest durationSeconds(@javax.annotation.Nonnull Long durationSeconds) {
+    
+    this.durationSeconds = durationSeconds;
+    return this;
   }
 
   /**
-   * The limit of the messages for the current request.
-   * minimum: 1
-   * maximum: 200
-   * @return limit
+   * How long the elevation should last, in seconds.
+   * @return durationSeconds
    */
   @javax.annotation.Nonnull
 
-  public Long getLimit() {
-    return limit;
+  public Long getDurationSeconds() {
+    return durationSeconds;
   }
 
 
-
-  /**
-   * The request url for the next page. Empty/Null when no next page is available.
-   * @return next
-   */
-  @javax.annotation.Nullable
-
-  public String getNext() {
-    return next;
+  public void setDurationSeconds(@javax.annotation.Nonnull Long durationSeconds) {
+    this.durationSeconds = durationSeconds;
   }
 
-
+  public ElevateRequest id(@javax.annotation.Nonnull Long id) {
+    
+    this.id = id;
+    return this;
+  }
 
   /**
-   * The ID of the last message returned in the current request. Use this as alternative to the next link.
-   * minimum: 0
-   * @return since
+   * The client ID to elevate.
+   * @return id
    */
   @javax.annotation.Nonnull
 
-  public Long getSince() {
-    return since;
+  public Long getId() {
+    return id;
   }
 
 
-
-  /**
-   * The amount of messages that got returned in the current request.
-   * @return size
-   */
-  @javax.annotation.Nonnull
-
-  public Long getSize() {
-    return size;
+  public void setId(@javax.annotation.Nonnull Long id) {
+    this.id = id;
   }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -125,26 +90,22 @@ public class Paging {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Paging paging = (Paging) o;
-    return Objects.equals(this.limit, paging.limit) &&
-        Objects.equals(this.next, paging.next) &&
-        Objects.equals(this.since, paging.since) &&
-        Objects.equals(this.size, paging.size);
+    ElevateRequest elevateRequest = (ElevateRequest) o;
+    return Objects.equals(this.durationSeconds, elevateRequest.durationSeconds) &&
+        Objects.equals(this.id, elevateRequest.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(limit, next, since, size);
+    return Objects.hash(durationSeconds, id);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Paging {\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    next: ").append(toIndentedString(next)).append("\n");
-    sb.append("    since: ").append(toIndentedString(since)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("class ElevateRequest {\n");
+    sb.append("    durationSeconds: ").append(toIndentedString(durationSeconds)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

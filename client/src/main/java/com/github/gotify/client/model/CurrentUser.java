@@ -21,16 +21,27 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 
 /**
- * The User holds information about permission and other stuff.
+ * CurrentUserExternal Model
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.19.0")
-public class User {
+public class CurrentUser {
   public static final String SERIALIZED_NAME_ADMIN = "admin";
   @SerializedName(SERIALIZED_NAME_ADMIN)
   @javax.annotation.Nonnull
   private Boolean admin;
+
+  public static final String SERIALIZED_NAME_CLIENT_ID = "clientId";
+  @SerializedName(SERIALIZED_NAME_CLIENT_ID)
+  @javax.annotation.Nullable
+  private Long clientId;
+
+  public static final String SERIALIZED_NAME_ELEVATED_UNTIL = "elevatedUntil";
+  @SerializedName(SERIALIZED_NAME_ELEVATED_UNTIL)
+  @javax.annotation.Nullable
+  private OffsetDateTime elevatedUntil;
 
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -42,20 +53,24 @@ public class User {
   @javax.annotation.Nonnull
   private String name;
 
-  public User() {
+  public CurrentUser() {
   }
   /**
    * Constructor with only readonly parameters
    */
   
-  public User(
+  public CurrentUser(
+     Long clientId, 
+     OffsetDateTime elevatedUntil, 
      Long id
   ) {
     this();
+    this.clientId = clientId;
+    this.elevatedUntil = elevatedUntil;
     this.id = id;
   }
 
-  public User admin(@javax.annotation.Nonnull Boolean admin) {
+  public CurrentUser admin(@javax.annotation.Nonnull Boolean admin) {
     
     this.admin = admin;
     return this;
@@ -77,6 +92,30 @@ public class User {
   }
 
   /**
+   * The client id of the current session.
+   * @return clientId
+   */
+  @javax.annotation.Nullable
+
+  public Long getClientId() {
+    return clientId;
+  }
+
+
+
+  /**
+   * The time until which the session is elevated.
+   * @return elevatedUntil
+   */
+  @javax.annotation.Nullable
+
+  public OffsetDateTime getElevatedUntil() {
+    return elevatedUntil;
+  }
+
+
+
+  /**
    * The user id.
    * @return id
    */
@@ -88,7 +127,7 @@ public class User {
 
 
 
-  public User name(@javax.annotation.Nonnull String name) {
+  public CurrentUser name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -117,22 +156,26 @@ public class User {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
-    return Objects.equals(this.admin, user.admin) &&
-        Objects.equals(this.id, user.id) &&
-        Objects.equals(this.name, user.name);
+    CurrentUser currentUser = (CurrentUser) o;
+    return Objects.equals(this.admin, currentUser.admin) &&
+        Objects.equals(this.clientId, currentUser.clientId) &&
+        Objects.equals(this.elevatedUntil, currentUser.elevatedUntil) &&
+        Objects.equals(this.id, currentUser.id) &&
+        Objects.equals(this.name, currentUser.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(admin, id, name);
+    return Objects.hash(admin, clientId, elevatedUntil, id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class User {\n");
+    sb.append("class CurrentUser {\n");
     sb.append("    admin: ").append(toIndentedString(admin)).append("\n");
+    sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
+    sb.append("    elevatedUntil: ").append(toIndentedString(elevatedUntil)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");

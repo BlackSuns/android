@@ -11,6 +11,7 @@ import okhttp3.MultipartBody;
 
 import com.github.gotify.client.model.Client;
 import com.github.gotify.client.model.ClientParams;
+import com.github.gotify.client.model.ElevateRequest;
 import com.github.gotify.client.model.Error;
 
 import java.util.ArrayList;
@@ -36,13 +37,27 @@ public interface ClientApi {
 
   /**
    * Delete a client.
-   * 
+   * Requires elevated authentication.
    * @param id the client id (required)
    * @return Call&lt;Void&gt;
    */
   @DELETE("client/{id}")
   Call<Void> deleteClient(
     @retrofit2.http.Path("id") Long id
+  );
+
+  /**
+   * Elevate a client session.
+   * Requires elevated authentication.
+   * @param body the elevation request (required)
+   * @return Call&lt;Void&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("client:elevate")
+  Call<Void> elevateClient(
+    @retrofit2.http.Body ElevateRequest body
   );
 
   /**

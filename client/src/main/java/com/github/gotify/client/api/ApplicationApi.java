@@ -37,7 +37,7 @@ public interface ApplicationApi {
 
   /**
    * Delete an application.
-   * 
+   * Requires elevated authentication.
    * @param id the application id (required)
    * @return Call&lt;Void&gt;
    */

@@ -43,10 +43,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="Login"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar.Login"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="gotify" android:host="oidc" android:path="/callback" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".log.LogsActivity"
             android:exported="false"

@@ -45,6 +45,12 @@ internal class Settings(context: Context) {
     var clientCertPassword: String?
         get() = sharedPreferences.getString("clientCertPass", null)
         set(value) = sharedPreferences.edit { putString("clientCertPass", value) }
+    var oidcCodeVerifier: String?
+        get() = sharedPreferences.getString("oidc_code_verifier", null)
+        set(value) = sharedPreferences.edit { putString("oidc_code_verifier", value) }
+    var oidcState: String?
+        get() = sharedPreferences.getString("oidc_state", null)
+        set(value) = sharedPreferences.edit { putString("oidc_state", value) }
 
     init {
         sharedPreferences = context.getSharedPreferences("gotify", Context.MODE_PRIVATE)
@@ -61,6 +67,8 @@ internal class Settings(context: Context) {
         caCertPath = null
         clientCertPath = null
         clientCertPassword = null
+        oidcCodeVerifier = null
+        oidcState = null
     }
 
     fun setUser(name: String?, admin: Boolean) {
