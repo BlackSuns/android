@@ -2,7 +2,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="found_gotify_version">Found Gotify v%s</string>
+    <string name="found_gotify_version">Found Gotify %s</string>
     <string name="version_failed_status_code">Request to \'%1$s\' failed with status code %2$d</string>
     <string name="version_failed">Request to \'%1$s\' failed. %2$s.</string>
     <string name="wronguserpw">There is no user with this username and password</string>
