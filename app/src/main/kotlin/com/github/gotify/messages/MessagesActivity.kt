@@ -311,6 +311,7 @@ internal class MessagesActivity :
     }
 
     override fun onResume() {
+        Logger.info("OnResume " + javaClass.simpleName)
         val context = applicationContext
         val nManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         nManager.cancelAll()
